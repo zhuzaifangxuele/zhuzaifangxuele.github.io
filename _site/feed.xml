@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-03-03T10:48:09+08:00</updated><id>/feed.xml</id><title type="html">openeuler meeting minutes</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Welcome to Jekyll!</title><link href="/jekyll/update/2021/03/02/welcome-to-jekyll.html" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2021-03-02T19:36:35+08:00</published><updated>2021-03-02T19:36:35+08:00</updated><id>/jekyll/update/2021/03/02/welcome-to-jekyll</id><content type="html" xml:base="/jekyll/update/2021/03/02/welcome-to-jekyll.html">&lt;p&gt;You’ll find this post in your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
+
+&lt;p&gt;Jekyll requires blog post files to be named according to the following format:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;YEAR-MONTH-DAY-title.MARKUP&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Where &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;YEAR&lt;/code&gt; is a four-digit number, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MONTH&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DAY&lt;/code&gt; are both two-digit numbers, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;MARKUP&lt;/code&gt; is the file extension representing the format used in the file. After that, include the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
+
+&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Tom'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints 'Hi, Tom' to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Check out the &lt;a href=&quot;https://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><category term="jekyll" /><category term="update" /><summary type="html">You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.</summary></entry><entry><title type="html">Welcome To Jekyll</title><link href="/2021/03/02/welcome-to-jekyll.html" rel="alternate" type="text/html" title="Welcome To Jekyll" /><published>2021-03-02T00:00:00+08:00</published><updated>2021-03-02T00:00:00+08:00</updated><id>/2021/03/02/welcome-to-jekyll</id><content type="html" xml:base="/2021/03/02/welcome-to-jekyll.html">&lt;h1 id=&quot;kernel编译&quot;&gt;kernel编译&lt;/h1&gt;
+
+&lt;h2 id=&quot;1-rpmbuild方式编译内核rpm包&quot;&gt;1. rpmbuild方式编译内核rpm包&lt;/h2&gt;
+
+&lt;h3 id=&quot;demo&quot;&gt;demo&lt;/h3&gt;
+
+&lt;p&gt;我们现在演示编译一个centos8.3的内核，打上hygon的补丁,编译x86架构的内核rpm包&lt;/p&gt;
+
+&lt;h3 id=&quot;编译环境&quot;&gt;编译环境&lt;/h3&gt;
+
+&lt;p&gt;centos8.3&lt;/p&gt;
+
+&lt;h3 id=&quot;编译依赖&quot;&gt;编译依赖&lt;/h3&gt;
+
+&lt;h4 id=&quot;打开powertoolsrepo源&quot;&gt;打开PowerTools.repo源&lt;/h4&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/yum.repos.d/CentOS-Linux-PowerTools.repo&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# CentOS-Linux-PowerTools.repo&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# The mirrorlist system uses the connecting IP address of the client and the&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# update status of each mirror to pick current mirrors that are geographically&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# close to the client.  You should use this for CentOS updates unless you are&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# manually picking other mirrors.&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# If the mirrorlist does not work for you, you can try the commented out&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# baseurl line instead.&lt;/span&gt;
+
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;powertools]
+&lt;span class=&quot;nv&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;CentOS Linux &lt;span class=&quot;nv&quot;&gt;$releasever&lt;/span&gt; - PowerTools
+&lt;span class=&quot;nv&quot;&gt;mirrorlist&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;http://mirrorlist.centos.org/?release&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$releasever&lt;/span&gt;&amp;amp;arch&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$basearch&lt;/span&gt;&amp;amp;repo&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;PowerTools&amp;amp;infra&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$infra&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#baseurl=http://mirror.centos.org/$contentdir/$releasever/PowerTools/$basearch/os/&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;gpgcheck&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
+&lt;span class=&quot;nv&quot;&gt;enabled&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
+&lt;span class=&quot;nv&quot;&gt;gpgkey&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;安装编译依赖&quot;&gt;安装编译依赖&lt;/h4&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;yum &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; gcc git java-devel kabi-dw libbabeltrace-devel libcap-devel libcap-ng-devel llvm-toolset m4 make ncurses-devel newt-devel nss-tools numactl-devel openssl-devel pciutils-devel perl perl-devel perl-generators pesign python3-devel python3-docutils xmlto xz-devel zlib-devel dwarves libbabeltrace-devel perl pesign dwarves libbabeltrace-devel libbpf-devel
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;安装rpmbuild&quot;&gt;安装rpmbuild&lt;/h4&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;yum &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; rpmbuild
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;源码准备&quot;&gt;源码准备&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;拷贝源码到&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/rpmbuild/SOURCES&lt;/code&gt;下&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;拷贝kernel.spec到&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/rpmbuild/SPECS/&lt;/code&gt;下&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;拷贝000_x86_add_hygon_family_18h.patch 到&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/rpmbuild/SOURCES&lt;/code&gt;下（这里以hygon的内核补丁为例子）&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;修改&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/rpmbuild/SPECS/&lt;/code&gt;下的kernel.spec&lt;/p&gt;
+
+    &lt;p&gt;在Source或Patch999999增加一行&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Patch9000: 000_x86_add_hygon_family_18h.patch&lt;/code&gt;(Patch9000表示patch编号，不冲突即可)&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;...
+&lt;span class=&quot;c&quot;&gt;# Sources for kernel-tools&lt;/span&gt;
+Source2000: cpupower.service
+Source2001: cpupower.config
+
+Source9000: centos.pem
+
+&lt;span class=&quot;c&quot;&gt;## Patches needed for building this package&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# empty final patch to facilitate testing of kernel patches&lt;/span&gt;
+Patch999999: linux-kernel-test.patch
+Patch9000: 000_x86_add_hygon_family_18h.patch
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;​		在&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ApplyOptionalPatch linux-kernel-test.patch&lt;/code&gt; 后增加一行，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ApplyOptionalPatch linux-kernel-test.patch&lt;/code&gt;（行业的代码对spec做了修改，只需增加）&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+...
+%setup &lt;span class=&quot;nt&quot;&gt;-q&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; %&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;name&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;-%&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;rpmversion&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;-%&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;pkgrelease&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;cp&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; %&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;SOURCE9000&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; linux-%&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;rpmversion&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;-%&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;pkgrelease&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;/certs/rhel.pem
+&lt;span class=&quot;nb&quot;&gt;mv &lt;/span&gt;linux-%&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;rpmversion&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;-%&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;pkgrelease&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; linux-%&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;KVERREL&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;linux-%&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;KVERREL&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+ApplyOptionalPatch linux-kernel-test.patch
+ApplyOptionalPatch 000_x86_add_hygon_family_18h.patch
+
+&lt;span class=&quot;c&quot;&gt;# END OF PATCH APPLICATIONS&lt;/span&gt;
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;编译&lt;/p&gt;
+
+    &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;pushd&lt;/span&gt; ~/rpmbuild/SPECS
+rpmbuild &lt;span class=&quot;nt&quot;&gt;-ba&lt;/span&gt; kernel.spec
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+
+    &lt;p&gt;等内核编译完，在&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/home/gaochong/rpmbuild/RPMS/&lt;/code&gt;产生内核rpm包，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/home/gaochong/rpmbuild/SPMS&lt;/code&gt;下产生SRPM包&lt;/p&gt;
+
+    &lt;!--*如果编译报错，缺少依赖，yum安装缺少的依赖包即可*--&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;2-tarball方式编译内核&quot;&gt;2. tarball方式编译内核&lt;/h2&gt;
+
+&lt;h3 id=&quot;demo-1&quot;&gt;demo&lt;/h3&gt;
+
+&lt;p&gt;从tar包编译&lt;strong&gt;4.19.163&lt;/strong&gt;版本x86内核, 编译vmlinuz和module&lt;/p&gt;
+
+&lt;h3 id=&quot;下载源码&quot;&gt;下载源码&lt;/h3&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;wget https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.19.163.tar.xz
+&lt;span class=&quot;nb&quot;&gt;tar&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-xf&lt;/span&gt; linux-4.19.163.tar.xz
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;内核编译过程简述&quot;&gt;内核编译过程简述&lt;/h3&gt;
+
+&lt;h4 id=&quot;make-menuconfigkconfigmakefile-关系&quot;&gt;make menuconfig、Kconfig、makefile 关系&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;make menuconfig 通过调用script提供的工具和Kconfig提供配置，指定生成.ko和编译到内核的选项，然后在图形界面显示&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;make menuconfig 弹出图形界面，交互生成.config文件&lt;/p&gt;
+
+    &lt;p&gt;详细关系，参考https://developer.aliyun.com/article/10404&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;make-help&quot;&gt;make help&lt;/h4&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;make help&lt;/code&gt;是makefile 内置的目标，打印内核make相关可以使用的参数&lt;/p&gt;
+
+&lt;h4 id=&quot;执行make-menuconfig&quot;&gt;执行make menuconfig&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/zhuzaifangxuele/PicgoBed/main/img/20201223131700.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Pressing &amp;lt;Y&amp;gt; includes, &amp;lt;N&amp;gt; excludes, &amp;lt;M&amp;gt; modularizes features.  Press &amp;lt;Esc&amp;gt;&amp;lt;Esc&amp;gt; to exit, &amp;lt;?&amp;gt; for Help, &amp;lt;/&amp;gt; for Search.  
+Legend: [*] built-in  [ ] excluded  &amp;lt;M&amp;gt; module  &amp;lt; &amp;gt; module capable  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;按Y表示包含进来，N表示不包含，M表示编译成模块，就是.ko&lt;/p&gt;
+
+&lt;p&gt;选择好，移动到Save保存，Esc按两次退出&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;生成.config 文件（这里的config文件是通过menuconfig配置生成的），一般我们会使用其他系统里已经配置好内核配置项在&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/boot/config-4.18.0-240.el8.x86_64&lt;/code&gt;，把&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/boot/config-4.18.0-240.el8.x86_64&lt;/code&gt;&lt;/em&gt;&lt;/strong&gt;
+&lt;strong&gt;&lt;em&gt;拷贝成.config，这样运行make menuconfig的时候，会从.config读取配置项，我们在.config的基础上修改配置后刷新.conifg，原来的配置文件回保存为.config.old&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;编译&quot;&gt;编译&lt;/h4&gt;
+
+&lt;h5 id=&quot;编译-1&quot;&gt;编译&lt;/h5&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;make -j4
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-j4&lt;/code&gt;表示线程，最大设置为处理器的核心数，超过反而回慢。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;make&lt;/code&gt; 在缺省目标时，相当于&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;make all&lt;/code&gt;，这个可以在Makefile 里找到&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;all：&lt;/code&gt;目标，查看到编译依赖&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;make &lt;/code&gt; = &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;make vmlinux&lt;/code&gt; + &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;make modules&lt;/code&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;清空编译&quot;&gt;清空编译&lt;/h5&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;make clean
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Cleaning targets:
+  clean           - Remove most generated files but keep the config and
+                    enough build support to build external modules
+  mrproper        - Remove all generated files + config + various backup files
+  distclean       - mrproper + remove editor backup and patch files
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;安装内核模块&quot;&gt;安装内核模块&lt;/h4&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;make modules_install INSTALL_MOD_PATH=/e/x/a/m/p/l/e
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;安装内核模块&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;INSTALL_MOD_PATH&lt;/code&gt;指定内核模块安装的目录，可以不指定，默认是&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/&lt;/code&gt; 下生成对应内核版本的lib/modules&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;make install
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;更改开机启动项&quot;&gt;更改开机启动项&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Legacy模式&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;grub2-mkconfig &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; /boot/grub2/grub.cfg
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;UEFI模式&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;grub2-mkconfig -o /boot/efi/EFI/centos/grub.cfg
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;重启&quot;&gt;重启&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/zhuzaifangxuele/PicgoBed/main/img/20201223141505.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/zhuzaifangxuele/PicgoBed/main/img/20201223141543.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;卸载安装的内核&quot;&gt;卸载安装的内核&lt;/h4&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[gaochong@localhost x86_64]$ ls -l /boot/
+total 495996
+-rw-r--r--. 1 root root    189494 Sep 25 15:57 config-4.18.0-240.el8.x86_64
+-rw-r--r--. 1 root root    182939 Dec 23 03:25 config-4.19.163
+drwxr-xr-x. 3 root root        17 Dec 21 01:23 efi
+drwx------. 4 root root        83 Dec 21 05:52 grub2
+-rw-------. 1 root root 105462544 Dec 21 01:47 initramfs-0-rescue-468e9bcfa79d489885f2c06dbde1e7be.img
+-rw-------. 1 root root  55163193 Dec 21 01:57 initramfs-4.18.0-240.el8.x86_64.img
+-rw-------. 1 root root  19116813 Dec 21 03:34 initramfs-4.18.0-240.el8.x86_64kdump.img
+-rw-------. 1 root root 110490576 Dec 23 04:11 initramfs-4.19.163.img
+drwxr-xr-x. 3 root root        21 Dec 21 01:42 loader
+lrwxrwxrwx. 1 root root        25 Dec 23 04:09 System.map -&amp;gt; /boot/System.map-4.19.163
+-rw-------. 1 root root   4032815 Sep 25 15:57 System.map-4.18.0-240.el8.x86_64
+-rw-r--r--. 1 root root   3755674 Dec 23 04:09 System.map-4.19.163
+-rwxr-xr-x. 1 root root 182475078 Dec 23 03:19 vmlinux-4.19.163.bz2
+lrwxrwxrwx. 1 root root        22 Dec 23 04:09 vmlinuz -&amp;gt; /boot/vmlinuz-4.19.163
+-rwxr-xr-x. 1 root root   9514120 Dec 21 01:45 vmlinuz-0-rescue-468e9bcfa79d489885f2c06dbde1e7be
+-rwxr-xr-x. 1 root root   9514120 Sep 25 15:57 vmlinuz-4.18.0-240.el8.x86_64
+-rw-r--r--. 1 root root   7980928 Dec 23 04:09 vmlinuz-4.19.163
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;删除/lib/modules 下对应的 kernel版本文件夹。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;删除/boot/下面对应的内核vmlinz和System.map指向的软件&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;调用grub2-mkconfig,实现grub菜单&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;uefi系统&lt;/p&gt;
+
+        &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;grub2-mkconfig -o /boot/efi/EFI/centos/grub.cfg 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;legacy系统&lt;/p&gt;
+
+        &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;grub2-mkconfig -o /boot/grub2/grub.cfg
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;3-tarball-编译rpm或deb包&quot;&gt;3. tarball 编译rpm或deb包&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;制作或copy centos的证书到&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;certs/rhel.pem&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;kernel的makefile回自动生成spec文件，调用rpmbuild 编译&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;make -j64 rpm-pkg 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;编译过程&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[gaochong@localhost linux-4.19.163]$ make -j64 rpm-pkg 
+scripts/kconfig/conf  --syncconfig Kconfig
+  UPD     include/config/kernel.release
+make clean
+/bin/sh ./scripts/package/mkspec &amp;gt;./kernel.spec
+  TAR     kernel-4.19.163.tar.gz
+rpmbuild  --target x86_64 -ta kernel-4.19.163.tar.gz \
+--define='_smp_mflags %{nil}'
+Building target platforms: x86_64
+Building for target x86_64
+Executing(%prep): /bin/sh -e /var/tmp/rpm-tmp.9oT1A4
++ umask 022
++ cd /home/gaochong/rpmbuild/BUILD
++ cd /home/gaochong/rpmbuild/BUILD
++ rm -rf kernel-4.19.163
++ /usr/bin/gzip -dc /home/gaochong/lab/linux-4.19.163/kernel-4.19.163.tar.gz
++ /usr/bin/tar -xof -
++ STATUS=0
++ '[' 0 -ne 0 ']'
++ cd kernel-4.19.163
++ /usr/bin/chmod -Rf a+rX,u+w,g-w,o-w .
++ exit 0
+Executing(%build): /bin/sh -e /var/tmp/rpm-tmp.1ysQtM
++ umask 022
++ cd /home/gaochong/rpmbuild/BUILD
++ cd kernel-4.19.163
++ make KBUILD_BUILD_VERSION=1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/home/gaochong/rpmbuild/RPMS/x86_64/kernel-4.19.163-1.x86_64.rpm
+/home/gaochong/rpmbuild/RPMS/x86_64/kernel-devel-4.19.163-1.x86_64.rpm
+/home/gaochong/rpmbuild/RPMS/x86_64/kernel-headers-4.19.163-1.x86_64.rpm
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;编译后会产生3个rpm包&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/home/gaochong/rpmbuild/RPMS/x86_64/kernel-4.19.163-1.x86_64.rpm
+/home/gaochong/rpmbuild/RPMS/x86_64/kernel-devel-4.19.163-1.x86_64.rpm
+/home/gaochong/rpmbuild/RPMS/x86_64/kernel-headers-4.19.163-1.x86_64.rpm
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;​	扩展：initrd 是安装kernel-4.19.163-1.x86_64.rpm后产生的，&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;%post&lt;/code&gt;阶段调用&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/sbin/installkernel&lt;/code&gt; 脚本，脚本调用&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/usr/lib/kernel/install.d/&lt;/code&gt;里的&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;50-dracut.install&lt;/code&gt;产生的&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;initramfs-${KERNEL_VERSION}.img&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;4-考题&quot;&gt;4. 考题&lt;/h2&gt;
+
+&lt;p&gt;在欧拉的系统上，编译安装一个5.9的ARM内核，重启后默认从5.9内核上启动系统&lt;/p&gt;</content><author><name></name></author><summary type="html">kernel编译</summary></entry></feed>

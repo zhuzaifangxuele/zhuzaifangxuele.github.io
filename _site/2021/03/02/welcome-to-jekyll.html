@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Welcome To Jekyll | openeuler meeting minutes</title>
+<meta name="generator" content="Jekyll v4.2.0" />
+<meta property="og:title" content="Welcome To Jekyll" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="kernel编译" />
+<meta property="og:description" content="kernel编译" />
+<link rel="canonical" href="/2021/03/02/welcome-to-jekyll.html" />
+<meta property="og:url" content="/2021/03/02/welcome-to-jekyll.html" />
+<meta property="og:site_name" content="openeuler meeting minutes" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-03-02T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Welcome To Jekyll" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","headline":"Welcome To Jekyll","dateModified":"2021-03-02T00:00:00+08:00","url":"/2021/03/02/welcome-to-jekyll.html","datePublished":"2021-03-02T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"/2021/03/02/welcome-to-jekyll.html"},"description":"kernel编译","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="openeuler meeting minutes" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">openeuler meeting minutes</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <h1 id="kernel编译">kernel编译</h1>
+
+<h2 id="1-rpmbuild方式编译内核rpm包">1. rpmbuild方式编译内核rpm包</h2>
+
+<h3 id="demo">demo</h3>
+
+<p>我们现在演示编译一个centos8.3的内核，打上hygon的补丁,编译x86架构的内核rpm包</p>
+
+<h3 id="编译环境">编译环境</h3>
+
+<p>centos8.3</p>
+
+<h3 id="编译依赖">编译依赖</h3>
+
+<h4 id="打开powertoolsrepo源">打开PowerTools.repo源</h4>
+
+<p><code class="language-plaintext highlighter-rouge">/etc/yum.repos.d/CentOS-Linux-PowerTools.repo</code></p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># CentOS-Linux-PowerTools.repo</span>
+<span class="c">#</span>
+<span class="c"># The mirrorlist system uses the connecting IP address of the client and the</span>
+<span class="c"># update status of each mirror to pick current mirrors that are geographically</span>
+<span class="c"># close to the client.  You should use this for CentOS updates unless you are</span>
+<span class="c"># manually picking other mirrors.</span>
+<span class="c">#</span>
+<span class="c"># If the mirrorlist does not work for you, you can try the commented out</span>
+<span class="c"># baseurl line instead.</span>
+
+<span class="o">[</span>powertools]
+<span class="nv">name</span><span class="o">=</span>CentOS Linux <span class="nv">$releasever</span> - PowerTools
+<span class="nv">mirrorlist</span><span class="o">=</span>http://mirrorlist.centos.org/?release<span class="o">=</span><span class="nv">$releasever</span>&amp;arch<span class="o">=</span><span class="nv">$basearch</span>&amp;repo<span class="o">=</span>PowerTools&amp;infra<span class="o">=</span><span class="nv">$infra</span>
+<span class="c">#baseurl=http://mirror.centos.org/$contentdir/$releasever/PowerTools/$basearch/os/</span>
+<span class="nv">gpgcheck</span><span class="o">=</span>1
+<span class="nv">enabled</span><span class="o">=</span>1
+<span class="nv">gpgkey</span><span class="o">=</span>file:///etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+</code></pre></div></div>
+
+<h4 id="安装编译依赖">安装编译依赖</h4>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yum <span class="nb">install</span> <span class="nt">-y</span> gcc git java-devel kabi-dw libbabeltrace-devel libcap-devel libcap-ng-devel llvm-toolset m4 make ncurses-devel newt-devel nss-tools numactl-devel openssl-devel pciutils-devel perl perl-devel perl-generators pesign python3-devel python3-docutils xmlto xz-devel zlib-devel dwarves libbabeltrace-devel perl pesign dwarves libbabeltrace-devel libbpf-devel
+</code></pre></div></div>
+
+<h4 id="安装rpmbuild">安装rpmbuild</h4>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yum <span class="nb">install</span> <span class="nt">-y</span> rpmbuild
+</code></pre></div></div>
+
+<h4 id="源码准备">源码准备</h4>
+
+<ol>
+  <li>
+    <p>拷贝源码到<code class="language-plaintext highlighter-rouge">~/rpmbuild/SOURCES</code>下</p>
+  </li>
+  <li>
+    <p>拷贝kernel.spec到<code class="language-plaintext highlighter-rouge">~/rpmbuild/SPECS/</code>下</p>
+  </li>
+  <li>
+    <p>拷贝000_x86_add_hygon_family_18h.patch 到<code class="language-plaintext highlighter-rouge">~/rpmbuild/SOURCES</code>下（这里以hygon的内核补丁为例子）</p>
+  </li>
+  <li>
+    <p>修改<code class="language-plaintext highlighter-rouge">~/rpmbuild/SPECS/</code>下的kernel.spec</p>
+
+    <p>在Source或Patch999999增加一行<code class="language-plaintext highlighter-rouge">Patch9000: 000_x86_add_hygon_family_18h.patch</code>(Patch9000表示patch编号，不冲突即可)</p>
+  </li>
+</ol>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
+<span class="c"># Sources for kernel-tools</span>
+Source2000: cpupower.service
+Source2001: cpupower.config
+
+Source9000: centos.pem
+
+<span class="c">## Patches needed for building this package</span>
+
+<span class="c"># empty final patch to facilitate testing of kernel patches</span>
+Patch999999: linux-kernel-test.patch
+Patch9000: 000_x86_add_hygon_family_18h.patch
+...
+</code></pre></div></div>
+
+<p>​		在<code class="language-plaintext highlighter-rouge">ApplyOptionalPatch linux-kernel-test.patch</code> 后增加一行，<code class="language-plaintext highlighter-rouge">ApplyOptionalPatch linux-kernel-test.patch</code>（行业的代码对spec做了修改，只需增加）</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+...
+%setup <span class="nt">-q</span> <span class="nt">-n</span> %<span class="o">{</span>name<span class="o">}</span>-%<span class="o">{</span>rpmversion<span class="o">}</span>-%<span class="o">{</span>pkgrelease<span class="o">}</span> <span class="nt">-c</span>
+<span class="nb">cp</span> <span class="nt">-v</span> %<span class="o">{</span>SOURCE9000<span class="o">}</span> linux-%<span class="o">{</span>rpmversion<span class="o">}</span>-%<span class="o">{</span>pkgrelease<span class="o">}</span>/certs/rhel.pem
+<span class="nb">mv </span>linux-%<span class="o">{</span>rpmversion<span class="o">}</span>-%<span class="o">{</span>pkgrelease<span class="o">}</span> linux-%<span class="o">{</span>KVERREL<span class="o">}</span>
+
+<span class="nb">cd </span>linux-%<span class="o">{</span>KVERREL<span class="o">}</span>
+
+ApplyOptionalPatch linux-kernel-test.patch
+ApplyOptionalPatch 000_x86_add_hygon_family_18h.patch
+
+<span class="c"># END OF PATCH APPLICATIONS</span>
+...
+</code></pre></div></div>
+<ol>
+  <li>
+    <p>编译</p>
+
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">pushd</span> ~/rpmbuild/SPECS
+rpmbuild <span class="nt">-ba</span> kernel.spec
+</code></pre></div>    </div>
+
+    <p>等内核编译完，在<code class="language-plaintext highlighter-rouge">/home/gaochong/rpmbuild/RPMS/</code>产生内核rpm包，<code class="language-plaintext highlighter-rouge">/home/gaochong/rpmbuild/SPMS</code>下产生SRPM包</p>
+
+    <!--*如果编译报错，缺少依赖，yum安装缺少的依赖包即可*-->
+  </li>
+</ol>
+
+<h2 id="2-tarball方式编译内核">2. tarball方式编译内核</h2>
+
+<h3 id="demo-1">demo</h3>
+
+<p>从tar包编译<strong>4.19.163</strong>版本x86内核, 编译vmlinuz和module</p>
+
+<h3 id="下载源码">下载源码</h3>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.19.163.tar.xz
+<span class="nb">tar</span> <span class="nt">-xf</span> linux-4.19.163.tar.xz
+</code></pre></div></div>
+
+<h3 id="内核编译过程简述">内核编译过程简述</h3>
+
+<h4 id="make-menuconfigkconfigmakefile-关系">make menuconfig、Kconfig、makefile 关系</h4>
+
+<ul>
+  <li>
+    <p>make menuconfig 通过调用script提供的工具和Kconfig提供配置，指定生成.ko和编译到内核的选项，然后在图形界面显示</p>
+  </li>
+  <li>
+    <p>make menuconfig 弹出图形界面，交互生成.config文件</p>
+
+    <p>详细关系，参考https://developer.aliyun.com/article/10404</p>
+  </li>
+</ul>
+
+<h4 id="make-help">make help</h4>
+
+<p><code class="language-plaintext highlighter-rouge">make help</code>是makefile 内置的目标，打印内核make相关可以使用的参数</p>
+
+<h4 id="执行make-menuconfig">执行make menuconfig</h4>
+
+<p><img src="https://raw.githubusercontent.com/zhuzaifangxuele/PicgoBed/main/img/20201223131700.png" alt="" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Pressing &lt;Y&gt; includes, &lt;N&gt; excludes, &lt;M&gt; modularizes features.  Press &lt;Esc&gt;&lt;Esc&gt; to exit, &lt;?&gt; for Help, &lt;/&gt; for Search.  
+Legend: [*] built-in  [ ] excluded  &lt;M&gt; module  &lt; &gt; module capable  
+</code></pre></div></div>
+
+<p>按Y表示包含进来，N表示不包含，M表示编译成模块，就是.ko</p>
+
+<p>选择好，移动到Save保存，Esc按两次退出</p>
+
+<p><strong><em>生成.config 文件（这里的config文件是通过menuconfig配置生成的），一般我们会使用其他系统里已经配置好内核配置项在<code class="language-plaintext highlighter-rouge">/boot/config-4.18.0-240.el8.x86_64</code>，把<code class="language-plaintext highlighter-rouge">/boot/config-4.18.0-240.el8.x86_64</code></em></strong>
+<strong><em>拷贝成.config，这样运行make menuconfig的时候，会从.config读取配置项，我们在.config的基础上修改配置后刷新.conifg，原来的配置文件回保存为.config.old</em></strong></p>
+
+<h4 id="编译">编译</h4>
+
+<h5 id="编译-1">编译</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make -j4
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">-j4</code>表示线程，最大设置为处理器的核心数，超过反而回慢。</p>
+
+<p><code class="language-plaintext highlighter-rouge">make</code> 在缺省目标时，相当于<code class="language-plaintext highlighter-rouge">make all</code>，这个可以在Makefile 里找到<code class="language-plaintext highlighter-rouge">all：</code>目标，查看到编译依赖</p>
+
+<p><code class="language-plaintext highlighter-rouge">make </code> = <code class="language-plaintext highlighter-rouge">make vmlinux</code> + <code class="language-plaintext highlighter-rouge">make modules</code></p>
+
+<h5 id="清空编译">清空编译</h5>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make clean
+</code></pre></div></div>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Cleaning targets:
+  clean           - Remove most generated files but keep the config and
+                    enough build support to build external modules
+  mrproper        - Remove all generated files + config + various backup files
+  distclean       - mrproper + remove editor backup and patch files
+</code></pre></div></div>
+
+<h4 id="安装内核模块">安装内核模块</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make modules_install INSTALL_MOD_PATH=/e/x/a/m/p/l/e
+</code></pre></div></div>
+
+<p>安装内核模块<code class="language-plaintext highlighter-rouge">INSTALL_MOD_PATH</code>指定内核模块安装的目录，可以不指定，默认是<code class="language-plaintext highlighter-rouge">/</code> 下生成对应内核版本的lib/modules</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make install
+</code></pre></div></div>
+
+<h4 id="更改开机启动项">更改开机启动项</h4>
+
+<ul>
+  <li>Legacy模式</li>
+</ul>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>grub2-mkconfig <span class="nt">-o</span> /boot/grub2/grub.cfg
+</code></pre></div></div>
+
+<ul>
+  <li>UEFI模式</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>grub2-mkconfig -o /boot/efi/EFI/centos/grub.cfg
+</code></pre></div></div>
+
+<h4 id="重启">重启</h4>
+
+<p><img src="https://raw.githubusercontent.com/zhuzaifangxuele/PicgoBed/main/img/20201223141505.png" alt="" /></p>
+
+<p><img src="https://raw.githubusercontent.com/zhuzaifangxuele/PicgoBed/main/img/20201223141543.png" alt="" /></p>
+
+<h4 id="卸载安装的内核">卸载安装的内核</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[gaochong@localhost x86_64]$ ls -l /boot/
+total 495996
+-rw-r--r--. 1 root root    189494 Sep 25 15:57 config-4.18.0-240.el8.x86_64
+-rw-r--r--. 1 root root    182939 Dec 23 03:25 config-4.19.163
+drwxr-xr-x. 3 root root        17 Dec 21 01:23 efi
+drwx------. 4 root root        83 Dec 21 05:52 grub2
+-rw-------. 1 root root 105462544 Dec 21 01:47 initramfs-0-rescue-468e9bcfa79d489885f2c06dbde1e7be.img
+-rw-------. 1 root root  55163193 Dec 21 01:57 initramfs-4.18.0-240.el8.x86_64.img
+-rw-------. 1 root root  19116813 Dec 21 03:34 initramfs-4.18.0-240.el8.x86_64kdump.img
+-rw-------. 1 root root 110490576 Dec 23 04:11 initramfs-4.19.163.img
+drwxr-xr-x. 3 root root        21 Dec 21 01:42 loader
+lrwxrwxrwx. 1 root root        25 Dec 23 04:09 System.map -&gt; /boot/System.map-4.19.163
+-rw-------. 1 root root   4032815 Sep 25 15:57 System.map-4.18.0-240.el8.x86_64
+-rw-r--r--. 1 root root   3755674 Dec 23 04:09 System.map-4.19.163
+-rwxr-xr-x. 1 root root 182475078 Dec 23 03:19 vmlinux-4.19.163.bz2
+lrwxrwxrwx. 1 root root        22 Dec 23 04:09 vmlinuz -&gt; /boot/vmlinuz-4.19.163
+-rwxr-xr-x. 1 root root   9514120 Dec 21 01:45 vmlinuz-0-rescue-468e9bcfa79d489885f2c06dbde1e7be
+-rwxr-xr-x. 1 root root   9514120 Sep 25 15:57 vmlinuz-4.18.0-240.el8.x86_64
+-rw-r--r--. 1 root root   7980928 Dec 23 04:09 vmlinuz-4.19.163
+</code></pre></div></div>
+
+<ol>
+  <li>
+    <p>删除/lib/modules 下对应的 kernel版本文件夹。</p>
+  </li>
+  <li>
+    <p>删除/boot/下面对应的内核vmlinz和System.map指向的软件</p>
+  </li>
+  <li>
+    <p>调用grub2-mkconfig,实现grub菜单</p>
+
+    <ul>
+      <li>
+        <p>uefi系统</p>
+
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>grub2-mkconfig -o /boot/efi/EFI/centos/grub.cfg 
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>legacy系统</p>
+
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>grub2-mkconfig -o /boot/grub2/grub.cfg
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="3-tarball-编译rpm或deb包">3. tarball 编译rpm或deb包</h2>
+
+<ul>
+  <li>
+    <p>制作或copy centos的证书到<code class="language-plaintext highlighter-rouge">certs/rhel.pem</code></p>
+  </li>
+  <li>
+    <p>kernel的makefile回自动生成spec文件，调用rpmbuild 编译</p>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make -j64 rpm-pkg 
+</code></pre></div></div>
+
+<ul>
+  <li>编译过程</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[gaochong@localhost linux-4.19.163]$ make -j64 rpm-pkg 
+scripts/kconfig/conf  --syncconfig Kconfig
+  UPD     include/config/kernel.release
+make clean
+/bin/sh ./scripts/package/mkspec &gt;./kernel.spec
+  TAR     kernel-4.19.163.tar.gz
+rpmbuild  --target x86_64 -ta kernel-4.19.163.tar.gz \
+--define='_smp_mflags %{nil}'
+Building target platforms: x86_64
+Building for target x86_64
+Executing(%prep): /bin/sh -e /var/tmp/rpm-tmp.9oT1A4
++ umask 022
++ cd /home/gaochong/rpmbuild/BUILD
++ cd /home/gaochong/rpmbuild/BUILD
++ rm -rf kernel-4.19.163
++ /usr/bin/gzip -dc /home/gaochong/lab/linux-4.19.163/kernel-4.19.163.tar.gz
++ /usr/bin/tar -xof -
++ STATUS=0
++ '[' 0 -ne 0 ']'
++ cd kernel-4.19.163
++ /usr/bin/chmod -Rf a+rX,u+w,g-w,o-w .
++ exit 0
+Executing(%build): /bin/sh -e /var/tmp/rpm-tmp.1ysQtM
++ umask 022
++ cd /home/gaochong/rpmbuild/BUILD
++ cd kernel-4.19.163
++ make KBUILD_BUILD_VERSION=1
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/gaochong/rpmbuild/RPMS/x86_64/kernel-4.19.163-1.x86_64.rpm
+/home/gaochong/rpmbuild/RPMS/x86_64/kernel-devel-4.19.163-1.x86_64.rpm
+/home/gaochong/rpmbuild/RPMS/x86_64/kernel-headers-4.19.163-1.x86_64.rpm
+</code></pre></div></div>
+
+<ul>
+  <li>编译后会产生3个rpm包</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/home/gaochong/rpmbuild/RPMS/x86_64/kernel-4.19.163-1.x86_64.rpm
+/home/gaochong/rpmbuild/RPMS/x86_64/kernel-devel-4.19.163-1.x86_64.rpm
+/home/gaochong/rpmbuild/RPMS/x86_64/kernel-headers-4.19.163-1.x86_64.rpm
+</code></pre></div></div>
+
+<p>​	扩展：initrd 是安装kernel-4.19.163-1.x86_64.rpm后产生的，<code class="language-plaintext highlighter-rouge">%post</code>阶段调用<code class="language-plaintext highlighter-rouge">/sbin/installkernel</code> 脚本，脚本调用<code class="language-plaintext highlighter-rouge">/usr/lib/kernel/install.d/</code>里的<code class="language-plaintext highlighter-rouge">50-dracut.install</code>产生的<code class="language-plaintext highlighter-rouge">initramfs-${KERNEL_VERSION}.img</code></p>
+
+<h2 id="4-考题">4. 考题</h2>
+
+<p>在欧拉的系统上，编译安装一个5.9的ARM内核，重启后默认从5.9内核上启动系统</p>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">openeuler meeting minutes</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">openeuler meeting minutes</li><li><a class="u-email" href="mailto:zhuzaifangxuele@gmail.com">zhuzaifangxuele@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/jekyll"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">jekyll</span></a></li><li><a href="https://www.twitter.com/jekyllrb"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">jekyllrb</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
